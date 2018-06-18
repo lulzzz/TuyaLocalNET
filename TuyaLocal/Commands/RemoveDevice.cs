@@ -2,9 +2,9 @@
 {
     public class RemoveDevice
     {
-        public RemoveDevice(string deviceId) =>
-            DeviceId = deviceId;
+        public RemoveDevice(string id) =>
+            Id = id;
 
-        public string DeviceId { get; }
+        public string Id { get; }
     }
 }

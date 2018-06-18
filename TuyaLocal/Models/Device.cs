@@ -4,12 +4,12 @@
 
     public class Device
     {
-        public string DeviceName { get; set; }
+        public string Name { get; set; }
 
-        public IPAddress DeviceAddress { get; set; }
+        public IPAddress Address { get; set; }
 
-        public string DeviceId { get; set; }
+        public string Id { get; set; }
 
-        public string ProductKey { get; set; }
+        public string Key { get; set; }
     }
 }
