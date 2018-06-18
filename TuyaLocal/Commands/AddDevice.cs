@@ -22,6 +22,7 @@
             SecretKey = secretKey;
         }
 
+        [Required]
         [StringLength(16, MinimumLength = 10)]
         public string Id { get; }
 
@@ -31,6 +32,7 @@
         [IpAddress]
         public IPAddress IpAddress { get; }
 
+        [Required]
         [StringLength(16, MinimumLength = 10)]
         public string SecretKey { get; }
     }

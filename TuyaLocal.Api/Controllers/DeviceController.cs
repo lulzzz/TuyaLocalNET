@@ -6,6 +6,7 @@
     using Akka.Actor;
     using Commands;
     using Microsoft.AspNetCore.Mvc;
+    using Models;
 
     [Route("api/devices")]
     public class DeviceController : ControllerBase
@@ -20,8 +21,8 @@
         [HttpPut]
         public IActionResult Add([FromBody] AddPayload body)
         {
-            var lol = new AddDevice(body.Id, body.Name, body.Address, body.SecretKey);
-            List<ValidationResult> result = ValidateBody(lol);
+            var command = new AddDevice(body.Id, body.Name, body.Address, body.SecretKey);
+            List<ValidationResult> result = ValidateBody(command);
 
             if (result.Count > 0)
             {
@@ -29,12 +30,12 @@
                 return new JsonResult(result);
             }
 
-            _actorManager.DeviceCoordinator.Tell(lol);
+            _actorManager.DeviceCoordinator.Tell(command);
 
             return new JsonResult(body);
         }
 
-        private List<ValidationResult> ValidateBody(object body)
+        private static List<ValidationResult> ValidateBody(object body)
         {
             var validationResult = new List<ValidationResult>();
 
@@ -46,13 +47,5 @@
 
             return validationResult;
         }
-    }
-
-    public class AddPayload
-    {
-        public string Id { get; set; }
-        public string Name { get; set; }
-        public string Address { get; set; }
-        public string SecretKey { get; set; }
     }
 }
