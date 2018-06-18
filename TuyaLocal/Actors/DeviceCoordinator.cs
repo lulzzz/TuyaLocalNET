@@ -7,7 +7,7 @@
     using Commands;
     using Models;
 
-    internal class DeviceCoordinator : ReceiveActor
+    public class DeviceCoordinator : ReceiveActor
     {
         private readonly List<Device> _deviceList = new List<Device>();
 

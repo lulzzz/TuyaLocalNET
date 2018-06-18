@@ -2,7 +2,7 @@
 {
     using Models;
 
-    internal class AddDevice
+    public class AddDevice
     {
         public AddDevice(Device device) => 
             Device = device;

@@ -2,7 +2,7 @@
 {
     using Akka.Actor;
 
-    internal class RequestDeviceList
+    public class RequestDeviceList
     {
         public RequestDeviceList(IActorRef coordinatorActor) =>
             CoordinatorActor = coordinatorActor;
