@@ -19,10 +19,16 @@
                 command =>
                 {
                     _deviceList.Add(
-                        command.Device);
+                        new Device()
+                        {
+                            Name = command.Name,
+                            Id = command.Id,
+                            Address = command.IpAddress,
+                            Key = command.SecretKey
+                        });
 
                     logger.Info(
-                        $"{command.Device.DeviceName} has been added: {command.Device.DeviceId}");
+                        $"{command.Name} has been added: {command.Id}");
                 });
 
             Receive<RemoveDevice>(
@@ -30,10 +36,10 @@
                 {
                     _deviceList.Remove(
                         _deviceList.Single(
-                            r => r.DeviceId == command.DeviceId));
+                            r => r.Id == command.Id));
 
                     logger.Info(
-                        $"A device has been removed: {command.DeviceId}");
+                        $"A device has been removed: {command.Id}");
                 });
 
 
