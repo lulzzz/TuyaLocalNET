@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.27703.2018
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TuyaLocal", "TuyaLocal\TuyaLocal.csproj", "{AF569F5F-E840-4476-8E17-8BBA9E75F2AD}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TuyaLocal.Api", "TuyaLocal.Api\TuyaLocal.Api.csproj", "{CCDBDC4C-9432-4102-9845-481620F84911}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TuyaLocal.Api.Tests", "TuyaLocal.Api.Tests\TuyaLocal.Api.Tests.csproj", "{75A9A1CA-2344-4B70-8B05-188C40D99038}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{AF569F5F-E840-4476-8E17-8BBA9E75F2AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AF569F5F-E840-4476-8E17-8BBA9E75F2AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AF569F5F-E840-4476-8E17-8BBA9E75F2AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CCDBDC4C-9432-4102-9845-481620F84911}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCDBDC4C-9432-4102-9845-481620F84911}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCDBDC4C-9432-4102-9845-481620F84911}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCDBDC4C-9432-4102-9845-481620F84911}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75A9A1CA-2344-4B70-8B05-188C40D99038}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75A9A1CA-2344-4B70-8B05-188C40D99038}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75A9A1CA-2344-4B70-8B05-188C40D99038}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75A9A1CA-2344-4B70-8B05-188C40D99038}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
