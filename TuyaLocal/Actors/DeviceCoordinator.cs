@@ -1,5 +1,6 @@
 ﻿namespace TuyaLocal.Actors
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Akka.Actor;
@@ -34,6 +35,14 @@
             Receive<RemoveDevice>(
                 command =>
                 {
+                    if (_deviceList.Count(r => string.Equals(r.Id, command.Id)) == 0)
+                    {
+                        logger.Info(
+                            $"Tried to remove not existing device: {command.Id}");
+
+                        return;
+                    }
+
                     _deviceList.Remove(
                         _deviceList.Single(
                             r => r.Id == command.Id));
