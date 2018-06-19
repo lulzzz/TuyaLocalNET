@@ -19,23 +19,31 @@
         }
 
         [HttpPut]
-        public IActionResult Add([FromBody] AddPayload body)
+        public IActionResult Add([FromBody] AddPayload body) => ValidateCommand(
+            new AddDevice(body.Id, body.Name, body.Address, body.SecretKey));
+
+        [HttpDelete("{id}")]
+        public IActionResult Remove(string id) =>
+            ValidateCommand(new RemoveDevice(id));
+
+        private IActionResult ValidateCommand(object command)
         {
-            var command = new AddDevice(body.Id, body.Name, body.Address, body.SecretKey);
-            List<ValidationResult> result = ValidateBody(command);
+            List<ValidationResult> result = ValidatePayloadBody(command);
 
             if (result.Count > 0)
             {
-                HttpContext.Response.StatusCode = (int) HttpStatusCode.BadRequest;
+                HttpContext.Response.StatusCode =
+                    (int) HttpStatusCode.BadRequest;
+
                 return new JsonResult(result);
             }
 
             _actorManager.DeviceCoordinator.Tell(command);
 
-            return new JsonResult(body);
+            return new JsonResult(command);
         }
 
-        private static List<ValidationResult> ValidateBody(object body)
+        private static List<ValidationResult> ValidatePayloadBody(object body)
         {
             var validationResult = new List<ValidationResult>();
 
