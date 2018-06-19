@@ -1,6 +1,5 @@
 ﻿namespace TuyaLocal.Actors
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Akka.Actor;
@@ -20,7 +19,7 @@
                 command =>
                 {
                     _deviceList.Add(
-                        new Device()
+                        new Device
                         {
                             Name = command.Name,
                             Id = command.Id,
@@ -35,7 +34,9 @@
             Receive<RemoveDevice>(
                 command =>
                 {
-                    if (_deviceList.Count(r => string.Equals(r.Id, command.Id)) == 0)
+                    if (_deviceList.Count(
+                            r => string.Equals(r.Id, command.Id)) ==
+                        0)
                     {
                         logger.Info(
                             $"Tried to remove not existing device: {command.Id}");
@@ -51,12 +52,8 @@
                         $"A device has been removed: {command.Id}");
                 });
 
-
             Receive<ListDevices>(
-                command =>
-                {
-                    Sender.Tell(new ListData(_deviceList));
-                });
+                command => { Sender.Tell(new ListData(_deviceList)); });
         }
     }
 }
