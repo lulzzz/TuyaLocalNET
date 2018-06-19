@@ -6,6 +6,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+    using Utils;
 
     public class Startup
     {
@@ -19,12 +20,16 @@
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+                .AddJsonOptions(
+                    options =>
+                        options.SerializerSettings.Converters.Add(
+                            new IpAddressConverter()));
 
             services.AddSingleton(
                 new ActorManager(ActorSystem.Create("TuyaLocalApi")));
         }
-        
+
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
