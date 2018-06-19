@@ -10,10 +10,7 @@
         public DeviceListActor(List<Device> result)
         {
             Receive<ListData>(
-                command =>
-                {
-                    result.AddRange(command.Devices);
-                });
+                command => { result.AddRange(command.Devices); });
 
             Receive<RequestDeviceList>(
                 command =>

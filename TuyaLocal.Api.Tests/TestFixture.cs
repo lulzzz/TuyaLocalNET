@@ -63,11 +63,11 @@ namespace TuyaLocal.Api.Tests
         }
 
         /// <summary>
-        /// Gets the full path to the target project that we wish to test
+        ///     Gets the full path to the target project that we wish to test
         /// </summary>
         /// <param name="projectRelativePath">
-        /// The parent directory of the target project.
-        /// e.g. src, samples, test, or test/Websites
+        ///     The parent directory of the target project.
+        ///     e.g. src, samples, test, or test/Websites
         /// </param>
         /// <param name="startupAssembly">The target project's assembly.</param>
         /// <returns>The full path to the target project.</returns>
@@ -79,7 +79,7 @@ namespace TuyaLocal.Api.Tests
             var projectName = startupAssembly.GetName().Name;
 
             // Get currently executing test project path
-            var applicationBasePath = System.AppContext.BaseDirectory;
+            var applicationBasePath = AppContext.BaseDirectory;
 
             // Find the path to the target project
             var directoryInfo = new DirectoryInfo(applicationBasePath);
