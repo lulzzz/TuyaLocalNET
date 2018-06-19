@@ -1,5 +1,6 @@
 ﻿namespace TuyaLocal.Api.Tests
 {
+    using System.Linq;
     using System.Net;
     using System.Net.Http;
     using System.Text;
@@ -64,6 +65,13 @@
             var result = await Client.DeleteAsync($"/api/devices/{id}");
 
             Assert.Equal(HttpStatusCode.OK, result.StatusCode);
+        }
+
+        [Fact]
+        public async Task GetDeviceList_ShouldReturnOKWithResult()
+        {
+            var getResult = await Client.GetAsync("/api/devices");
+            Assert.Equal(HttpStatusCode.OK, getResult.StatusCode);
         }
     }
 }

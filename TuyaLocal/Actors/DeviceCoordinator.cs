@@ -18,6 +18,13 @@
             Receive<AddDevice>(
                 command =>
                 {
+                    if (_deviceList.Any(r => r.Id == command.Id))
+                    {
+                        logger.Info(
+                            $"{command.Id} already exists.");
+                        return;
+                    }
+
                     _deviceList.Add(
                         new Device
                         {
@@ -34,9 +41,8 @@
             Receive<RemoveDevice>(
                 command =>
                 {
-                    if (_deviceList.Count(
-                            r => string.Equals(r.Id, command.Id)) ==
-                        0)
+                    if (!_deviceList.Any(
+                            r => string.Equals(r.Id, command.Id)))
                     {
                         logger.Info(
                             $"Tried to remove not existing device: {command.Id}");
@@ -52,7 +58,7 @@
                         $"A device has been removed: {command.Id}");
                 });
 
-            Receive<ListDevices>(
+            Receive<RequestDeviceList>(
                 command => { Sender.Tell(new ListData(_deviceList)); });
         }
     }

@@ -60,7 +60,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Actors\DeviceListActor.cs" />
     <Compile Include="Validations\IpAddressAttribute.cs" />
     <Compile Include="Commands\ListData.cs" />
     <Compile Include="Commands\AddDevice.cs" />
