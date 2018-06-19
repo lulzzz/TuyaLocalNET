@@ -22,6 +22,7 @@
                     {
                         logger.Info(
                             $"{command.Id} already exists.");
+
                         return;
                     }
 
@@ -42,7 +43,7 @@
                 command =>
                 {
                     if (!_deviceList.Any(
-                            r => string.Equals(r.Id, command.Id)))
+                        r => string.Equals(r.Id, command.Id)))
                     {
                         logger.Info(
                             $"Tried to remove not existing device: {command.Id}");
