@@ -17,7 +17,7 @@
 
             IpAddress = IPAddress.TryParse(address, out var ip)
                 ? ip
-                : IPAddress.Parse("127.0.0.1");
+                : IPAddress.Loopback;
 
             SecretKey = secretKey;
         }
