@@ -60,7 +60,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\EditDevice.cs" />
+    <Compile Include="Commands\UpdateDevice.cs" />
     <Compile Include="Commands\GetDevice.cs" />
     <Compile Include="Validations\IpAddressAttribute.cs" />
     <Compile Include="Commands\AddDevice.cs" />

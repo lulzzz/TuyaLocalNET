@@ -4,9 +4,9 @@
     using System.Net;
     using Validations;
 
-    public class EditDevice
+    public class UpdateDevice
     {
-        public EditDevice(
+        public UpdateDevice(
             string id,
             string name,
             string address,

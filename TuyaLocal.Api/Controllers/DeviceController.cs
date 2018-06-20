@@ -50,7 +50,7 @@
         [HttpPost("{id}")]
         public IActionResult Edit(string id, [FromBody] EditPayload body) =>
             ValidateCommand(
-                new EditDevice(
+                new UpdateDevice(
                     id,
                     body.Name,
                     body.Address,

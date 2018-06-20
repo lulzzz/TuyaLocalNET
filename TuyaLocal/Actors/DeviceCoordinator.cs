@@ -98,11 +98,17 @@
                         return;
                     }
 
+                    logger.Info($"Getting device: {command.Id}");
+
                     Sender.Tell(_deviceList.Single(r => r.Id == command.Id));
                 });
 
             Receive<GetDevices>(
-                command => { Sender.Tell(_deviceList); });
+                command =>
+                {
+                    logger.Info("Getting devices");
+                    Sender.Tell(_deviceList);
+                });
         }
     }
 }
