@@ -6,10 +6,10 @@
     {
         public string Name { get; set; }
 
-        public IPAddress Address { get; set; }
+        public IPAddress IpAddress { get; set; }
 
         public string Id { get; set; }
 
-        public string Key { get; set; }
+        public string SecretKey { get; set; }
     }
 }

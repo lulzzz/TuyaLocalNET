@@ -31,12 +31,39 @@
                         {
                             Name = command.Name,
                             Id = command.Id,
-                            Address = command.IpAddress,
-                            Key = command.SecretKey
+                            IpAddress = command.IpAddress,
+                            SecretKey = command.SecretKey
                         });
 
                     logger.Info(
                         $"{command.Name} has been added: {command.Id}");
+                });
+
+            Receive<UpdateDevice>(
+                command =>
+                {
+                    if (_deviceList.All(r => r.Id != command.Id))
+                    {
+                        logger.Info(
+                            $"{command.Id} does not exist.");
+
+                        return;
+                    }
+
+                    var updatableDevice =
+                        _deviceList.Single(r => r.Name != null);
+
+                    if (updatableDevice == null)
+                    {
+                        return;
+                    }
+
+                    updatableDevice.Name = command.Name;
+                    updatableDevice.IpAddress = command.IpAddress;
+                    updatableDevice.SecretKey = command.SecretKey;
+
+                    logger.Info(
+                        $"{command.Id} has been updated.");
                 });
 
             Receive<RemoveDevice>(
@@ -59,7 +86,23 @@
                         $"A device has been removed: {command.Id}");
                 });
 
-            Receive<RequestDeviceList>(
+            Receive<GetDevice>(
+                command =>
+                {
+                    if (!_deviceList.Any(
+                        r => string.Equals(r.Id, command.Id)))
+                    {
+                        logger.Info(
+                            $"Tried to get not existing device: {command.Id}");
+
+                        Sender.Tell(new Device());
+                        return;
+                    }
+
+                    Sender.Tell(_deviceList.Single(r => r.Id == command.Id));
+                });
+
+            Receive<GetDevices>(
                 command => { Sender.Tell(_deviceList); });
         }
     }

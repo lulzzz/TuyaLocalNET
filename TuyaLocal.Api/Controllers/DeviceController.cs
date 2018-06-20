@@ -30,11 +30,32 @@
         {
             var result = _actorManager.DeviceCoordinator
                 .Ask<IEnumerable<Device>>(
-                    new RequestDeviceList())
+                    new GetDevices())
                 .Result;
 
             return new JsonResult(result);
         }
+
+        [HttpGet("{id}")]
+        public IActionResult GetSingle(string id)
+        {
+            var result = _actorManager.DeviceCoordinator
+                .Ask<Device>(
+                    new GetDevice(id))
+                .Result;
+
+            return new JsonResult(result);
+        }
+
+        [HttpPost("{id}")]
+        public IActionResult Edit(string id, [FromBody] EditPayload body) =>
+            ValidateCommand(
+                new EditDevice(
+                    id,
+                    body.Name,
+                    body.Address,
+                    body.SecretKey),
+                _actorManager.DeviceCoordinator);
 
         [HttpDelete("{id}")]
         public IActionResult Remove(string id) =>

@@ -1,6 +1,6 @@
 ﻿namespace TuyaLocal.Commands
 {
-    public class RequestDeviceList
+    public class GetDevices
     {
     }
 }

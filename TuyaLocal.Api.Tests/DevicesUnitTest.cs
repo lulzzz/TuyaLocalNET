@@ -50,6 +50,17 @@
         public async Task GetDeviceList_ShouldReturnOK()
         {
             var getResult = await Client.GetAsync("/api/devices");
+
+            Assert.Equal(HttpStatusCode.OK, getResult.StatusCode);
+        }
+
+        [Fact]
+        public async Task GetSingleDevice_ShouldReturnOK()
+        {
+            const string id = "abdefg12345677";
+
+            var getResult = await Client.GetAsync($"/api/devices/{id}");
+
             Assert.Equal(HttpStatusCode.OK, getResult.StatusCode);
         }
 
