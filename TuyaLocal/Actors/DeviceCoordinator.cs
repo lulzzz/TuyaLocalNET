@@ -42,7 +42,7 @@
             Receive<UpdateDevice>(
                 command =>
                 {
-                    if (_deviceList.All(r => r.Id != command.Id))
+                    if (_deviceList.Any(r => r.Id != command.Id))
                     {
                         logger.Info(
                             $"{command.Id} does not exist.");
@@ -69,8 +69,7 @@
             Receive<RemoveDevice>(
                 command =>
                 {
-                    if (!_deviceList.Any(
-                        r => string.Equals(r.Id, command.Id)))
+                    if (_deviceList.Any(r => r.Id != command.Id))
                     {
                         logger.Info(
                             $"Tried to remove not existing device: {command.Id}");
@@ -89,13 +88,13 @@
             Receive<GetDevice>(
                 command =>
                 {
-                    if (!_deviceList.Any(
-                        r => string.Equals(r.Id, command.Id)))
+                    if (_deviceList.Any(r => r.Id != command.Id))
                     {
                         logger.Info(
                             $"Tried to get not existing device: {command.Id}");
 
                         Sender.Tell(new Device());
+
                         return;
                     }
 
