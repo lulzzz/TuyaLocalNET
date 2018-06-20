@@ -1,9 +1,11 @@
 ﻿namespace TuyaLocal.Api.Controllers
 {
+    using System.Collections.Generic;
     using Akka.Actor;
     using Commands;
     using Microsoft.AspNetCore.Mvc;
     using Models;
+    using TuyaLocal.Models;
 
     [Route("api/devices")]
     public class DeviceController : ApiControllerBase
@@ -26,11 +28,12 @@
         [HttpGet]
         public IActionResult Get()
         {
-            var result = _actorManager.DeviceCoordinator.Ask<ListData>(
+            var result = _actorManager.DeviceCoordinator
+                .Ask<IEnumerable<Device>>(
                     new RequestDeviceList())
                 .Result;
 
-            return new JsonResult(result.Devices);
+            return new JsonResult(result);
         }
 
         [HttpDelete("{id}")]

@@ -61,7 +61,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Validations\IpAddressAttribute.cs" />
-    <Compile Include="Commands\ListData.cs" />
     <Compile Include="Commands\AddDevice.cs" />
     <Compile Include="Models\Device.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

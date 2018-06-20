@@ -60,7 +60,7 @@
                 });
 
             Receive<RequestDeviceList>(
-                command => { Sender.Tell(new ListData(_deviceList)); });
+                command => { Sender.Tell(_deviceList); });
         }
     }
 }
