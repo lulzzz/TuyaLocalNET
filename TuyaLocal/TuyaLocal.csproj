@@ -64,7 +64,6 @@
     <Compile Include="Commands\ListData.cs" />
     <Compile Include="Commands\AddDevice.cs" />
     <Compile Include="Models\Device.cs" />
-    <Compile Include="Commands\ListDevices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Actors\DeviceCoordinator.cs" />
     <Compile Include="Commands\RequestDeviceList.cs" />

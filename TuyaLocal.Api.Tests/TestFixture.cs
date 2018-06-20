@@ -11,7 +11,7 @@ namespace TuyaLocal.Api.Tests
     using Microsoft.AspNetCore.TestHost;
     using Microsoft.Extensions.DependencyInjection;
 
-    public class TestFixture<TStartup> : IDisposable
+    public sealed class TestFixture<TStartup> : IDisposable
     {
         private readonly TestServer _server;
 
@@ -20,7 +20,7 @@ namespace TuyaLocal.Api.Tests
         {
         }
 
-        protected TestFixture(string relativeTargetProjectParentDir)
+        private TestFixture(string relativeTargetProjectParentDir)
         {
             var startupAssembly = typeof(TStartup).GetTypeInfo().Assembly;
 
@@ -48,7 +48,7 @@ namespace TuyaLocal.Api.Tests
             _server.Dispose();
         }
 
-        protected virtual void InitializeServices(IServiceCollection services)
+        private static void InitializeServices(IServiceCollection services)
         {
             var startupAssembly = typeof(TStartup).GetTypeInfo().Assembly;
 
@@ -89,24 +89,26 @@ namespace TuyaLocal.Api.Tests
                 directoryInfo = directoryInfo.Parent;
 
                 var projectDirectoryInfo = new DirectoryInfo(
-                    Path.Combine(directoryInfo.FullName, projectRelativePath));
+                    Path.Combine(directoryInfo?.FullName, projectRelativePath));
 
-                if (projectDirectoryInfo.Exists)
+                if (!projectDirectoryInfo.Exists)
                 {
-                    var projectFileInfo = new FileInfo(
-                        Path.Combine(
-                            projectDirectoryInfo.FullName,
-                            projectName,
-                            $"{projectName}.csproj"));
-
-                    if (projectFileInfo.Exists)
-                    {
-                        return Path.Combine(
-                            projectDirectoryInfo.FullName,
-                            projectName);
-                    }
+                    continue;
                 }
-            } while (directoryInfo.Parent != null);
+
+                var projectFileInfo = new FileInfo(
+                    Path.Combine(
+                        projectDirectoryInfo.FullName,
+                        projectName,
+                        $"{projectName}.csproj"));
+
+                if (projectFileInfo.Exists)
+                {
+                    return Path.Combine(
+                        projectDirectoryInfo.FullName,
+                        projectName);
+                }
+            } while (directoryInfo?.Parent != null);
 
             throw new Exception(
                 $"Project root could not be located using the application root {applicationBasePath}.");

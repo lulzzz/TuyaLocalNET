@@ -12,7 +12,7 @@
             object command,
             IActorRef actor)
         {
-            var result = ValidatePayloadBody(command);
+            List<ValidationResult> result = ValidatePayloadBody(command);
 
             if (result.Count > 0)
             {
