@@ -33,6 +33,12 @@
 
                     logger.Info($"Group {command.Name} has been added.");
                 });
+
+            Receive<AddDevice>(
+                command =>
+                {
+                    logger.Info($"Device {command.Id} has been added to {command.GroupName}");
+                });
         }
     }
 }

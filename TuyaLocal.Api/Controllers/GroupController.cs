@@ -20,5 +20,13 @@
                 new Commands.Group.Create(body.Name),
                 _actorManager.GroupCoordinator);
         }
+
+        [HttpPost("{groupName}")]
+        public IActionResult AddDevice(string groupName, [FromBody] AddDevice body)
+        {
+            return ValidateCommand(
+                new Commands.Group.AddDevice(groupName, body.Id),
+                _actorManager.GroupCoordinator);
+        }
     }
 }
