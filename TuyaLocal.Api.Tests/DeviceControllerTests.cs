@@ -6,9 +6,9 @@
     using System.Threading.Tasks;
     using Xunit;
 
-    public class DevicesUnitTest : TestBase
+    public class DeviceControllerTests : TestBase
     {
-        public DevicesUnitTest(TestFixture<Startup> fixture) : base(fixture)
+        public DeviceControllerTests(TestFixture<Startup> fixture) : base(fixture)
         {
         }
 
@@ -55,13 +55,13 @@
         }
 
         [Fact]
-        public async Task GetSingleDevice_ShouldReturnOK()
+        public async Task GetSingleDevice_ShouldReturn404()
         {
             const string id = "abdefg12345677";
 
             var getResult = await Client.GetAsync($"/api/devices/{id}");
 
-            Assert.Equal(HttpStatusCode.OK, getResult.StatusCode);
+            Assert.Equal(HttpStatusCode.NotFound, getResult.StatusCode);
         }
 
         [Fact]

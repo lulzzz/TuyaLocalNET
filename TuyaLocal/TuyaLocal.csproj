@@ -60,8 +60,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Actors\GroupCoordinator.cs" />
     <Compile Include="Commands\Device\Update.cs" />
     <Compile Include="Commands\Device\Get.cs" />
+    <Compile Include="Commands\Group\Create.cs" />
+    <Compile Include="Models\Group.cs" />
     <Compile Include="Validations\IpAddressAttribute.cs" />
     <Compile Include="Commands\Device\Add.cs" />
     <Compile Include="Models\Device.cs" />

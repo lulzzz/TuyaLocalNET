@@ -88,12 +88,12 @@
             Receive<Get>(
                 command =>
                 {
-                    if (_deviceList.Any(r => r.Id != command.Id))
+                    if (_deviceList.All(r => r.Id != command.Id))
                     {
                         logger.Info(
                             $"Tried to get not existing device: {command.Id}");
 
-                        Sender.Tell(new Device());
+                        Sender.Tell(null);
 
                         return;
                     }

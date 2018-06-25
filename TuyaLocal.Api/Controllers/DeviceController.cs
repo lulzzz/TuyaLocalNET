@@ -1,6 +1,7 @@
 ﻿namespace TuyaLocal.Api.Controllers
 {
     using System.Collections.Generic;
+    using System.Net;
     using Akka.Actor;
     using Commands.Device;
     using Microsoft.AspNetCore.Mvc;
@@ -44,6 +45,11 @@
                 .Ask<Device>(
                     new Get(id))
                 .Result;
+
+            if (result == null)
+            {
+                HttpContext.Response.StatusCode = (int) HttpStatusCode.NotFound;
+            }
 
             return new JsonResult(result);
         }
