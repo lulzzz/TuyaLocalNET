@@ -8,12 +8,13 @@
 
     public class GroupControllerTests : TestBase
     {
-        public GroupControllerTests(TestFixture<Startup> fixture) : base(fixture)
+        public GroupControllerTests(TestFixture<Startup> fixture) : base(
+            fixture)
         {
         }
 
         [Fact]
-        public async Task GroupCreateShouldReturnOk()
+        public async Task GroupAddDeviceShouldReturnOk()
         {
             var payload = new StringContent(
                 @"{name: ""Wohnzimmer""}",
@@ -21,6 +22,15 @@
                 "application/json");
 
             var result = await Client.PutAsync("/api/groups", payload);
+
+            Assert.Equal(HttpStatusCode.OK, result.StatusCode);
+
+            payload = new StringContent(
+                @"{id: ""1234678901""}",
+                Encoding.UTF8,
+                "application/json");
+
+            result = await Client.PostAsync("/api/groups/Wohnzimmer", payload);
 
             Assert.Equal(HttpStatusCode.OK, result.StatusCode);
         }
@@ -39,7 +49,7 @@
         }
 
         [Fact]
-        public async Task GroupAddDeviceShouldReturnOK()
+        public async Task GroupCreateShouldReturnOk()
         {
             var payload = new StringContent(
                 @"{name: ""Wohnzimmer""}",
@@ -47,15 +57,6 @@
                 "application/json");
 
             var result = await Client.PutAsync("/api/groups", payload);
-
-            Assert.Equal(HttpStatusCode.OK, result.StatusCode);
-
-            payload = new StringContent(
-                @"{id: ""1234678901""}",
-                Encoding.UTF8,
-                "application/json");
-
-            result = await Client.PostAsync("/api/groups/Wohnzimmer", payload);
 
             Assert.Equal(HttpStatusCode.OK, result.StatusCode);
         }

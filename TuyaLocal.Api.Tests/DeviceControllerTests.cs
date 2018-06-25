@@ -8,7 +8,8 @@
 
     public class DeviceControllerTests : TestBase
     {
-        public DeviceControllerTests(TestFixture<Startup> fixture) : base(fixture)
+        public DeviceControllerTests(TestFixture<Startup> fixture) : base(
+            fixture)
         {
         }
 

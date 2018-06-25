@@ -22,7 +22,9 @@
         }
 
         [HttpPost("{groupName}")]
-        public IActionResult AddDevice(string groupName, [FromBody] AddDevice body)
+        public IActionResult AddDevice(
+            string groupName,
+            [FromBody] AddDevice body)
         {
             return ValidateCommand(
                 new Commands.Group.AddDevice(groupName, body.Id),

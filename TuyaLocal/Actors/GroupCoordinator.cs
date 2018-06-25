@@ -26,10 +26,9 @@
                         return;
                     }
 
-                    _groupList.Add(new Group()
-                    {
-                        Name = command.Name
-                    });
+                    _groupList.Add(
+                        new Group
+                            {Name = command.Name});
 
                     logger.Info($"Group {command.Name} has been added.");
                 });
@@ -37,7 +36,8 @@
             Receive<AddDevice>(
                 command =>
                 {
-                    logger.Info($"Device {command.Id} has been added to {command.GroupName}");
+                    logger.Info(
+                        $"Device {command.Id} has been added to {command.GroupName}");
                 });
         }
     }
