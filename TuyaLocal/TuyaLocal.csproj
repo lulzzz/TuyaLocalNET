@@ -60,15 +60,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\UpdateDevice.cs" />
-    <Compile Include="Commands\GetDevice.cs" />
+    <Compile Include="Commands\Device\Update.cs" />
+    <Compile Include="Commands\Device\Get.cs" />
     <Compile Include="Validations\IpAddressAttribute.cs" />
-    <Compile Include="Commands\AddDevice.cs" />
+    <Compile Include="Commands\Device\Add.cs" />
     <Compile Include="Models\Device.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Actors\DeviceCoordinator.cs" />
-    <Compile Include="Commands\GetDevices.cs" />
-    <Compile Include="Commands\RemoveDevice.cs" />
+    <Compile Include="Commands\Device\GetAll.cs" />
+    <Compile Include="Commands\Device\Remove.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

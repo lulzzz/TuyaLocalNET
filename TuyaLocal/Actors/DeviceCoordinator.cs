@@ -4,7 +4,7 @@
     using System.Linq;
     using Akka.Actor;
     using Akka.Event;
-    using Commands;
+    using Commands.Device;
     using Models;
 
     public class DeviceCoordinator : ReceiveActor
@@ -15,7 +15,7 @@
         {
             var logger = Context.GetLogger();
 
-            Receive<AddDevice>(
+            Receive<Add>(
                 command =>
                 {
                     if (_deviceList.Any(r => r.Id == command.Id))
@@ -39,7 +39,7 @@
                         $"{command.Name} has been added: {command.Id}");
                 });
 
-            Receive<UpdateDevice>(
+            Receive<Update>(
                 command =>
                 {
                     if (_deviceList.Any(r => r.Id != command.Id))
@@ -66,7 +66,7 @@
                         $"{command.Id} has been updated.");
                 });
 
-            Receive<RemoveDevice>(
+            Receive<Remove>(
                 command =>
                 {
                     if (_deviceList.Any(r => r.Id != command.Id))
@@ -85,7 +85,7 @@
                         $"A device has been removed: {command.Id}");
                 });
 
-            Receive<GetDevice>(
+            Receive<Get>(
                 command =>
                 {
                     if (_deviceList.Any(r => r.Id != command.Id))
@@ -103,7 +103,7 @@
                     Sender.Tell(_deviceList.Single(r => r.Id == command.Id));
                 });
 
-            Receive<GetDevices>(
+            Receive<GetAll>(
                 command =>
                 {
                     logger.Info("Getting devices");

@@ -1,10 +1,10 @@
-﻿namespace TuyaLocal.Commands
+﻿namespace TuyaLocal.Commands.Device
 {
     using System.ComponentModel.DataAnnotations;
 
-    public class GetDevice
+    public class Get
     {
-        public GetDevice(string id) => Id = id;
+        public Get(string id) => Id = id;
 
         [Required]
         [StringLength(16, MinimumLength = 10)]

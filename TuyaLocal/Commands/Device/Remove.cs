@@ -1,10 +1,10 @@
-﻿namespace TuyaLocal.Commands
+﻿namespace TuyaLocal.Commands.Device
 {
     using System.ComponentModel.DataAnnotations;
 
-    public class RemoveDevice
+    public class Remove
     {
-        public RemoveDevice(string id) =>
+        public Remove(string id) =>
             Id = id;
 
         [Required]

@@ -2,10 +2,11 @@
 {
     using System.Collections.Generic;
     using Akka.Actor;
-    using Commands;
+    using Commands.Device;
     using Microsoft.AspNetCore.Mvc;
-    using Models;
+    using Models.Payloads.Device;
     using TuyaLocal.Models;
+    using Add = Models.Payloads.Device.Add;
 
     [Route("api/devices")]
     public class DeviceController : ApiControllerBase
@@ -16,9 +17,9 @@
             _actorManager = actorManager;
 
         [HttpPut]
-        public IActionResult Add([FromBody] AddPayload body) =>
+        public IActionResult Add([FromBody] Add body) =>
             ValidateCommand(
-                new AddDevice(
+                new Commands.Device.Add(
                     body.Id,
                     body.Name,
                     body.Address,
@@ -30,7 +31,7 @@
         {
             var result = _actorManager.DeviceCoordinator
                 .Ask<IEnumerable<Device>>(
-                    new GetDevices())
+                    new GetAll())
                 .Result;
 
             return new JsonResult(result);
@@ -41,16 +42,16 @@
         {
             var result = _actorManager.DeviceCoordinator
                 .Ask<Device>(
-                    new GetDevice(id))
+                    new Get(id))
                 .Result;
 
             return new JsonResult(result);
         }
 
         [HttpPost("{id}")]
-        public IActionResult Edit(string id, [FromBody] EditPayload body) =>
+        public IActionResult Edit(string id, [FromBody] Edit body) =>
             ValidateCommand(
-                new UpdateDevice(
+                new Update(
                     id,
                     body.Name,
                     body.Address,
@@ -60,7 +61,7 @@
         [HttpDelete("{id}")]
         public IActionResult Remove(string id) =>
             ValidateCommand(
-                new RemoveDevice(id),
+                new Remove(id),
                 _actorManager.DeviceCoordinator);
     }
 }

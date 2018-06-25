@@ -1,12 +1,12 @@
-﻿namespace TuyaLocal.Commands
+﻿namespace TuyaLocal.Commands.Device
 {
     using System.ComponentModel.DataAnnotations;
     using System.Net;
     using Validations;
 
-    public class UpdateDevice
+    public class Update
     {
-        public UpdateDevice(
+        public Update(
             string id,
             string name,
             string address,

@@ -1,8 +1,7 @@
-﻿namespace TuyaLocal.Api.Models
+﻿namespace TuyaLocal.Api.Models.Payloads.Device
 {
-    public class AddPayload
+    public class Edit
     {
-        public string Id { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
         public string SecretKey { get; set; }
