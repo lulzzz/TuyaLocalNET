@@ -60,5 +60,21 @@
 
             Assert.Equal(HttpStatusCode.OK, result.StatusCode);
         }
+
+        [Fact]
+        public async Task GroupDeleteShouldReturnOk()
+        {
+            var result = await Client.DeleteAsync("/api/groups/d00fd00fd00f");
+
+            Assert.Equal(HttpStatusCode.OK, result.StatusCode);
+        }
+
+        [Fact]
+        public async Task GroupDeleteAllShouldReturnOk()
+        {
+            var result = await Client.DeleteAsync("/api/groups/");
+
+            Assert.Equal(HttpStatusCode.OK, result.StatusCode);
+        }
     }
 }

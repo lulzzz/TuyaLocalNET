@@ -65,6 +65,8 @@
     <Compile Include="Commands\Device\Get.cs" />
     <Compile Include="Commands\Group\AddDevice.cs" />
     <Compile Include="Commands\Group\Create.cs" />
+    <Compile Include="Commands\Group\Delete.cs" />
+    <Compile Include="Commands\Group\DeleteAll.cs" />
     <Compile Include="Models\Group.cs" />
     <Compile Include="Validations\IpAddressAttribute.cs" />
     <Compile Include="Commands\Device\Add.cs" />

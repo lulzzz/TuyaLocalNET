@@ -36,9 +36,57 @@
             Receive<AddDevice>(
                 command =>
                 {
+                    if (_groupList.All(r => r.Name != command.GroupName))
+                    {
+                        logger.Info(
+                            $"Tried to add {command.Id} to not existsing group: {command.GroupName}");
+
+                        return;
+                    }
+
+                    if (_groupList.Single(r => r.Name == command.GroupName)
+                            .Devices.Contains(command.Id))
+                    {
+                        logger.Info(
+                            $"{command.Id} already exists in {command.GroupName}");
+
+                        return;
+                    }
+
+                    _groupList.Single(r => r.Name == command.GroupName).Devices.Add(command.Id);
+
                     logger.Info(
                         $"Device {command.Id} has been added to {command.GroupName}");
                 });
+
+            Receive<Delete>(
+                command =>
+                {
+                    if (_groupList.All(r => r.Name != command.GroupName))
+                    {
+                        logger.Info(
+                            $"Tried to delete not existing group: {command.GroupName}");
+
+                        return;
+                    }
+
+                    _groupList.Remove(
+                        _groupList.Single(
+                            r => r.Name == command.GroupName));
+
+                    logger.Info(
+                        $"Group {command.GroupName} has been deleted.");
+                }
+            );
+
+            Receive<DeleteAll>(
+                command =>
+                {
+                    _groupList.Clear();
+
+                    logger.Info("All groups have been deleted.");
+                }
+            );
         }
     }
 }

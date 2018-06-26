@@ -5,6 +5,7 @@
     public class Group
     {
         public string Name { get; set; }
-        public List<Device> Devices { get; set; }
+        //maybe possible logic fault?
+        public List<string> Devices { get; set; } = new List<string>();
     }
 }
