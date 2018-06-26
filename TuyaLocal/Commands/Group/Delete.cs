@@ -4,7 +4,10 @@
 
     public class Delete
     {
-        public Delete(string groupName) => GroupName = groupName;
+        public Delete(string groupName)
+        {
+            GroupName = groupName;
+        }
 
         [Required]
         [StringLength(16, MinimumLength = 1)]

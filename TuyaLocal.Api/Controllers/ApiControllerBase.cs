@@ -6,13 +6,14 @@
     using Akka.Actor;
     using Microsoft.AspNetCore.Mvc;
 
+    /// <inheritdoc />
     public abstract class ApiControllerBase : ControllerBase
     {
         protected IActionResult ValidateCommand(
             object command,
             IActorRef actor)
         {
-            List<ValidationResult> result = ValidatePayloadBody(command);
+            var result = ValidatePayloadBody(command);
 
             if (result.Count > 0)
             {

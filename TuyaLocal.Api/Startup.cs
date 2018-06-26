@@ -1,11 +1,15 @@
 ﻿namespace TuyaLocal.Api
 {
+    using System;
+    using System.IO;
+    using System.Reflection;
     using Akka.Actor;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+    using Newtonsoft.Json;
     using Swashbuckle.AspNetCore.Swagger;
     using Utils;
 
@@ -21,9 +25,8 @@
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                 .AddJsonOptions(
-                    options =>
-                        options.SerializerSettings.Converters.Add(
-                            new IpAddressConverter()));
+                    options => options.SerializerSettings.Converters.Add(
+                        new IpAddressConverter()));
 
             services.AddSwaggerGen(
                 c =>
@@ -50,6 +53,14 @@
                                     "https://github.com/ektooo/TuyaLocalNET/blob/master/LICENSE"
                             }
                         });
+
+                    var xmlFile =
+                        $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+
+                    var xmlPath =
+                        Path.Combine(AppContext.BaseDirectory, xmlFile);
+
+                    c.IncludeXmlComments(xmlPath);
                 });
 
             services.AddSingleton(
