@@ -1,8 +1,13 @@
 ﻿namespace TuyaLocal.Api.Controllers
 {
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.Linq;
     using System.Net;
+    using Akka.Actor;
+    using Commands.Group;
     using Microsoft.AspNetCore.Mvc;
+    using TuyaLocal.Models;
     using AddDevice = Models.Payloads.Group.AddDevice;
     using Create = Models.Payloads.Group.Create;
 
@@ -32,6 +37,47 @@
             return ValidateCommand(
                 new Commands.Group.AddDevice(groupName, body.Id),
                 _actorManager.GroupCoordinator);
+        }
+
+        [HttpDelete("{groupName}/{deviceName}")]
+        public IActionResult RemoveDevice(string groupName, string deviceName)
+        {
+            return ValidateCommand(
+                new Commands.Group.RemoveDevice(groupName, deviceName), 
+                _actorManager.GroupCoordinator);
+        }
+
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            var result = _actorManager.GroupCoordinator
+                .Ask<IEnumerable<Group>>(
+                    new GetAll())
+                .Result;
+
+            if (!result.Any())
+            {
+                HttpContext.Response.StatusCode = (int)HttpStatusCode.NotFound;
+            }
+
+            return new JsonResult(result);
+        }
+
+        [HttpGet("{groupName}")]
+        public IActionResult Get(string groupName)
+        {
+            var result = _actorManager.GroupCoordinator
+                .Ask<Group>(
+                    new Get(groupName))
+                .Result;
+
+            if (result != null)
+            {
+                return new JsonResult(result);
+            }
+
+            HttpContext.Response.StatusCode = (int)HttpStatusCode.NotFound;
+            return new JsonResult(new List<Group>());
         }
 
         [HttpDelete("{groupName}")]

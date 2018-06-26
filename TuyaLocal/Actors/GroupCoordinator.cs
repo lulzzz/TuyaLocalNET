@@ -39,24 +39,76 @@
                     if (_groupList.All(r => r.Name != command.GroupName))
                     {
                         logger.Info(
-                            $"Tried to add {command.Id} to not existsing group: {command.GroupName}");
+                            $"Tried to add {command.DeviceId} to not existing group: {command.GroupName}");
 
                         return;
                     }
 
                     if (_groupList.Single(r => r.Name == command.GroupName)
-                            .Devices.Contains(command.Id))
+                            .Devices.Contains(command.DeviceId))
                     {
                         logger.Info(
-                            $"{command.Id} already exists in {command.GroupName}");
+                            $"{command.DeviceId} already exists in {command.GroupName}");
 
                         return;
                     }
 
-                    _groupList.Single(r => r.Name == command.GroupName).Devices.Add(command.Id);
+                    _groupList.Single(r => r.Name == command.GroupName).Devices.Add(command.DeviceId);
 
                     logger.Info(
-                        $"Device {command.Id} has been added to {command.GroupName}");
+                        $"Device {command.DeviceId} has been added to {command.GroupName}");
+                });
+
+            Receive<RemoveDevice>(
+                command =>
+                {
+                    if (_groupList.All(r => r.Name != command.GroupName))
+                    {
+                        logger.Info(
+                            $"Tried to remove {command.DeviceId} from not existing group: {command.GroupName}");
+
+                        return;
+                    }
+
+                    if (!_groupList.Single(r => r.Name == command.GroupName)
+                        .Devices.Contains(command.DeviceId))
+                    {
+                        logger.Info(
+                            $"{command.DeviceId} does not exist in {command.GroupName}");
+
+                        return;
+                    }
+
+                    _groupList.Single(r => r.Name == command.GroupName).Devices.Remove(command.DeviceId);
+
+                    logger.Info(
+                        $"Device {command.DeviceId} has been removed from {command.GroupName}");
+                });
+
+            Receive<Get>(
+                command =>
+                {
+                    if (_groupList.All(r => r.Name != command.GroupName))
+                    {
+                        logger.Info(
+                            $"Tried to get not existing group: {command.GroupName}");
+
+                        Sender.Tell(null);
+
+                        return;
+                    }
+
+                    Sender.Tell(
+                        _groupList.Single(r => r.Name == command.GroupName));
+
+                    logger.Info($"Getting group {command.GroupName}");
+                });
+
+            Receive<GetAll>(
+                command =>
+                {
+                    logger.Info("Getting groups");
+                    Sender.Tell(_groupList);
                 });
 
             Receive<Delete>(

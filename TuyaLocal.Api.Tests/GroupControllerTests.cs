@@ -76,5 +76,49 @@
 
             Assert.Equal(HttpStatusCode.OK, result.StatusCode);
         }
+
+        [Fact]
+        public async Task GroupRemoveDeviceShouldReturnOk()
+        {
+            var result = await Client.DeleteAsync(
+                "/api/groups/d00fd00fd00f/deadbeefdeadbeed");
+
+            Assert.Equal(HttpStatusCode.OK, result.StatusCode);
+        }
+
+        [Fact]
+        public async Task GroupGetAllShouldReturn404()
+        {
+            await Client.DeleteAsync("/api/groups/");
+            var result = await Client.GetAsync("api/groups/");
+
+            Assert.Equal(HttpStatusCode.NotFound, result.StatusCode);
+        }
+
+        [Fact]
+        public async Task GroupGetAllShouldReturnOk()
+        {
+            var payload = new StringContent(
+                @"{name: ""Wohnzimmer""}",
+                Encoding.UTF8,
+                "application/json");
+
+            var result = await Client.PutAsync("/api/groups", payload);
+
+            Assert.Equal(HttpStatusCode.OK, result.StatusCode);
+
+            result = await Client.GetAsync("api/groups/");
+
+            Assert.Equal(HttpStatusCode.OK, result.StatusCode);
+        }
+
+        [Fact]
+        public async Task GroupGetSingleShouldReturn404()
+        {
+            await Client.DeleteAsync("/api/groups/");
+            var result = await Client.GetAsync("/api/groups/MyGroup");
+
+            Assert.Equal(HttpStatusCode.NotFound, result.StatusCode);
+        }
     }
 }

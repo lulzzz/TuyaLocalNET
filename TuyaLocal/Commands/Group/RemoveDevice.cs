@@ -2,9 +2,9 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    public class AddDevice
+    public class RemoveDevice
     {
-        public AddDevice(string groupName, string deviceId)
+        public RemoveDevice(string groupName, string deviceId)
         {
             GroupName = groupName;
             DeviceId = deviceId;

@@ -48,11 +48,11 @@
         }
 
         [Fact]
-        public async Task GetDeviceList_ShouldReturnOK()
+        public async Task GetDeviceList_ShouldReturn404()
         {
             var getResult = await Client.GetAsync("/api/devices");
 
-            Assert.Equal(HttpStatusCode.OK, getResult.StatusCode);
+            Assert.Equal(HttpStatusCode.NotFound, getResult.StatusCode);
         }
 
         [Fact]
@@ -63,6 +63,14 @@
             var getResult = await Client.GetAsync($"/api/devices/{id}");
 
             Assert.Equal(HttpStatusCode.NotFound, getResult.StatusCode);
+        }
+
+        [Fact]
+        public async Task RemoveAllDevices_ShouldReturnOk()
+        {
+            var result = await Client.DeleteAsync("/api/devices/");
+
+            Assert.Equal(HttpStatusCode.OK, result.StatusCode);
         }
 
         [Fact]

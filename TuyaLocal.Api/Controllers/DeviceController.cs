@@ -1,6 +1,7 @@
 ﻿namespace TuyaLocal.Api.Controllers
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Net;
     using Akka.Actor;
     using Commands.Device;
@@ -27,6 +28,23 @@
                     body.SecretKey),
                 _actorManager.DeviceCoordinator);
 
+
+        [HttpPost("{id}")]
+        public IActionResult Edit(string id, [FromBody] Edit body) =>
+            ValidateCommand(
+                new Update(
+                    id,
+                    body.Name,
+                    body.Address,
+                    body.SecretKey),
+                _actorManager.DeviceCoordinator);
+
+        [HttpDelete("{id}")]
+        public IActionResult RemoveSingle(string id) =>
+            ValidateCommand(
+                new Remove(id),
+                _actorManager.DeviceCoordinator);
+
         [HttpGet]
         public IActionResult Get()
         {
@@ -34,6 +52,11 @@
                 .Ask<IEnumerable<Device>>(
                     new GetAll())
                 .Result;
+
+            if (!result.Any())
+            {
+                HttpContext.Response.StatusCode = (int)HttpStatusCode.NotFound;
+            }
 
             return new JsonResult(result);
         }
@@ -54,20 +77,10 @@
             return new JsonResult(result);
         }
 
-        [HttpPost("{id}")]
-        public IActionResult Edit(string id, [FromBody] Edit body) =>
-            ValidateCommand(
-                new Update(
-                    id,
-                    body.Name,
-                    body.Address,
-                    body.SecretKey),
-                _actorManager.DeviceCoordinator);
-
-        [HttpDelete("{id}")]
+        [HttpDelete]
         public IActionResult Remove(string id) =>
             ValidateCommand(
-                new Remove(id),
+                new RemoveAll(), 
                 _actorManager.DeviceCoordinator);
     }
 }
