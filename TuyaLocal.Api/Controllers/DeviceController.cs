@@ -28,7 +28,6 @@
                     body.SecretKey),
                 _actorManager.DeviceCoordinator);
 
-
         [HttpPost("{id}")]
         public IActionResult Edit(string id, [FromBody] Edit body) =>
             ValidateCommand(
@@ -55,7 +54,7 @@
 
             if (!result.Any())
             {
-                HttpContext.Response.StatusCode = (int)HttpStatusCode.NotFound;
+                HttpContext.Response.StatusCode = (int) HttpStatusCode.NotFound;
             }
 
             return new JsonResult(result);
@@ -80,7 +79,7 @@
         [HttpDelete]
         public IActionResult Remove(string id) =>
             ValidateCommand(
-                new RemoveAll(), 
+                new RemoveAll(),
                 _actorManager.DeviceCoordinator);
     }
 }

@@ -62,14 +62,6 @@
         }
 
         [Fact]
-        public async Task GroupDeleteShouldReturnOk()
-        {
-            var result = await Client.DeleteAsync("/api/groups/d00fd00fd00f");
-
-            Assert.Equal(HttpStatusCode.OK, result.StatusCode);
-        }
-
-        [Fact]
         public async Task GroupDeleteAllShouldReturnOk()
         {
             var result = await Client.DeleteAsync("/api/groups/");
@@ -78,10 +70,9 @@
         }
 
         [Fact]
-        public async Task GroupRemoveDeviceShouldReturnOk()
+        public async Task GroupDeleteShouldReturnOk()
         {
-            var result = await Client.DeleteAsync(
-                "/api/groups/d00fd00fd00f/deadbeefdeadbeed");
+            var result = await Client.DeleteAsync("/api/groups/d00fd00fd00f");
 
             Assert.Equal(HttpStatusCode.OK, result.StatusCode);
         }
@@ -119,6 +110,15 @@
             var result = await Client.GetAsync("/api/groups/MyGroup");
 
             Assert.Equal(HttpStatusCode.NotFound, result.StatusCode);
+        }
+
+        [Fact]
+        public async Task GroupRemoveDeviceShouldReturnOk()
+        {
+            var result = await Client.DeleteAsync(
+                "/api/groups/d00fd00fd00f/deadbeefdeadbeed");
+
+            Assert.Equal(HttpStatusCode.OK, result.StatusCode);
         }
     }
 }

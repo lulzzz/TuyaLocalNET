@@ -1,7 +1,6 @@
 ﻿namespace TuyaLocal.Api.Controllers
 {
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Net;
     using Akka.Actor;
@@ -43,7 +42,7 @@
         public IActionResult RemoveDevice(string groupName, string deviceName)
         {
             return ValidateCommand(
-                new Commands.Group.RemoveDevice(groupName, deviceName), 
+                new RemoveDevice(groupName, deviceName),
                 _actorManager.GroupCoordinator);
         }
 
@@ -57,7 +56,7 @@
 
             if (!result.Any())
             {
-                HttpContext.Response.StatusCode = (int)HttpStatusCode.NotFound;
+                HttpContext.Response.StatusCode = (int) HttpStatusCode.NotFound;
             }
 
             return new JsonResult(result);
@@ -76,7 +75,8 @@
                 return new JsonResult(result);
             }
 
-            HttpContext.Response.StatusCode = (int)HttpStatusCode.NotFound;
+            HttpContext.Response.StatusCode = (int) HttpStatusCode.NotFound;
+
             return new JsonResult(new List<Group>());
         }
 
@@ -84,7 +84,7 @@
         public IActionResult Delete(string groupName)
         {
             return ValidateCommand(
-                new Commands.Group.Delete(groupName),
+                new Delete(groupName),
                 _actorManager.GroupCoordinator);
         }
 
@@ -92,7 +92,7 @@
         public IActionResult DeleteAll()
         {
             return ValidateCommand(
-                new Commands.Group.DeleteAll(),
+                new DeleteAll(),
                 _actorManager.GroupCoordinator);
         }
     }

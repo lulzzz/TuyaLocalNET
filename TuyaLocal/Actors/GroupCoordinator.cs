@@ -45,7 +45,7 @@
                     }
 
                     if (_groupList.Single(r => r.Name == command.GroupName)
-                            .Devices.Contains(command.DeviceId))
+                        .Devices.Contains(command.DeviceId))
                     {
                         logger.Info(
                             $"{command.DeviceId} already exists in {command.GroupName}");
@@ -53,7 +53,8 @@
                         return;
                     }
 
-                    _groupList.Single(r => r.Name == command.GroupName).Devices.Add(command.DeviceId);
+                    _groupList.Single(r => r.Name == command.GroupName)
+                        .Devices.Add(command.DeviceId);
 
                     logger.Info(
                         $"Device {command.DeviceId} has been added to {command.GroupName}");
@@ -79,7 +80,8 @@
                         return;
                     }
 
-                    _groupList.Single(r => r.Name == command.GroupName).Devices.Remove(command.DeviceId);
+                    _groupList.Single(r => r.Name == command.GroupName)
+                        .Devices.Remove(command.DeviceId);
 
                     logger.Info(
                         $"Device {command.DeviceId} has been removed from {command.GroupName}");

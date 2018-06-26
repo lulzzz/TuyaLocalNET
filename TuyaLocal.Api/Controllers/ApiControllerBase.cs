@@ -8,7 +8,7 @@
 
     public abstract class ApiControllerBase : ControllerBase
     {
-        public IActionResult ValidateCommand(
+        protected IActionResult ValidateCommand(
             object command,
             IActorRef actor)
         {
