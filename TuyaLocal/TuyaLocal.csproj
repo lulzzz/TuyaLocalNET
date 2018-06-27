@@ -60,6 +60,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Actors\DeviceActor.cs" />
     <Compile Include="Actors\GroupCoordinator.cs" />
     <Compile Include="Commands\Device\RemoveAll.cs" />
     <Compile Include="Commands\Device\Update.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="Commands\Group\GetAll.cs" />
     <Compile Include="Commands\Group\RemoveDevice.cs" />
     <Compile Include="Models\Group.cs" />
+    <Compile Include="Models\IDeviceCommand.cs" />
     <Compile Include="Validations\IpAddressAttribute.cs" />
     <Compile Include="Commands\Device\Add.cs" />
     <Compile Include="Models\Device.cs" />
