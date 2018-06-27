@@ -90,13 +90,13 @@
         public IActionResult Get()
         {
             var result = _actorManager.DeviceCoordinator
-                .Ask<IEnumerable<Device>>(
+                .Ask<IEnumerable<string>>(
                     new GetAll())
                 .Result;
 
             if (!result.Any())
             {
-                HttpContext.Response.StatusCode = (int) HttpStatusCode.NotFound;
+                HttpContext.Response.StatusCode = (int)HttpStatusCode.NotFound;
             }
 
             return new JsonResult(result);

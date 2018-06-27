@@ -9,111 +9,84 @@
 
     public class DeviceCoordinator : ReceiveActor
     {
-        private readonly List<Device> _deviceList = new List<Device>();
+        private readonly List<string> _deviceList =
+            new List<string>();
 
         public DeviceCoordinator()
         {
             var logger = Context.GetLogger();
 
-            Receive<Add>(
+            Receive<IDeviceCommand>(
                 command =>
                 {
-                    if (_deviceList.Any(r => r.Id == command.Id))
+                    switch (command)
                     {
-                        logger.Info(
-                            $"{command.Id} already exists.");
+                        case Add _ when _deviceList.Any(r => r == command.Id):
 
-                        return;
+                            logger.Info(
+                                $"Coordinator: {command.Id} can not be added, it already exists.");
+
+                            return;
+
+                        case Add _:
+                            _deviceList.Add(command.Id);
+
+                            Context.ActorOf(
+                                Props.Create(() => new DeviceActor(command.Id)),
+                                command.Id);
+
+                            logger.Info(
+                                $"Coordinator has added device {command.Id}");
+
+                            break;
+
+                        case Remove _ when _deviceList.All(r => r != command.Id):
+                            logger.Info($"Coordinator: {command.Id} can not be removed, it does not exist.");
+
+                            return;
+
+                        case Remove _ :
+                            _deviceList.Remove(command.Id);
+
+                            logger.Info($"Coordinator removed device {command.Id}");
+
+                            break;
                     }
 
-                    _deviceList.Add(
-                        new Device
+                    var child = Context.Child(command.Id);
+
+                    if (child.Path.Elements.Count != 0)
+                    {
+                        child.Tell(command, Sender);
+                    }
+                    else
+                    {
+                        if (Sender.Path.Name == "deadLetters")
                         {
-                            Name = command.Name,
-                            Id = command.Id,
-                            IpAddress = command.IpAddress,
-                            SecretKey = command.SecretKey
-                        });
-
-                    logger.Info(
-                        $"{command.Name} has been added: {command.Id}");
-                });
-
-            Receive<Update>(
-                command =>
-                {
-                    if (_deviceList.All(r => r.Id != command.Id))
-                    {
-                        logger.Info(
-                            $"Tried to update not existing device {command.Id}");
-
-                        return;
-                    }
-
-                    var updatableDevice =
-                        _deviceList.Single(r => r.Name != null);
-
-                    if (updatableDevice == null)
-                    {
-                        return;
-                    }
-
-                    updatableDevice.Name = command.Name;
-                    updatableDevice.IpAddress = command.IpAddress;
-                    updatableDevice.SecretKey = command.SecretKey;
-
-                    logger.Info(
-                        $"{command.Id} has been updated.");
-                });
-
-            Receive<Remove>(
-                command =>
-                {
-                    if (_deviceList.All(r => r.Id != command.Id))
-                    {
-                        logger.Info(
-                            $"Tried to remove not existing device: {command.Id}");
-
-                        return;
-                    }
-
-                    _deviceList.Remove(
-                        _deviceList.Single(
-                            r => r.Id == command.Id));
-
-                    logger.Info(
-                        $"A device has been removed: {command.Id}");
-                });
-
-            Receive<Get>(
-                command =>
-                {
-                    if (_deviceList.All(r => r.Id != command.Id))
-                    {
-                        logger.Info(
-                            $"Tried to get not existing device: {command.Id}");
+                            return;
+                        }
 
                         Sender.Tell(null);
-
-                        return;
                     }
-
-                    logger.Info($"Getting device: {command.Id}");
-
-                    Sender.Tell(_deviceList.Single(r => r.Id == command.Id));
                 });
 
             Receive<GetAll>(
                 command =>
                 {
-                    logger.Info("Getting devices");
+                    logger.Info("Coordinator gets all device ids");
                     Sender.Tell(_deviceList);
                 });
 
             Receive<RemoveAll>(
                 command =>
                 {
-                    logger.Info("Removing all devices");
+                    logger.Info("Coordinator removes all devices");
+
+                    foreach (var device in _deviceList)
+                    {
+                        Context.Child(device).Tell(new Remove(device));
+                    }
+
                     _deviceList.Clear();
                 });
         }
