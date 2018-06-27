@@ -2,9 +2,10 @@
 {
     using System.ComponentModel.DataAnnotations;
     using System.Net;
+    using Models;
     using Validations;
 
-    public class Add
+    public class Add : IDeviceCommand
     {
         public Add(
             string id,

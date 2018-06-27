@@ -1,8 +1,9 @@
 ﻿namespace TuyaLocal.Commands.Device
 {
     using System.ComponentModel.DataAnnotations;
+    using Models;
 
-    public class Get
+    public class Get : IDeviceCommand
     {
         public Get(string id) => Id = id;
 

@@ -2,9 +2,10 @@
 {
     using System.ComponentModel.DataAnnotations;
     using System.Net;
+    using Models;
     using Validations;
 
-    public class Update
+    public class Update : IDeviceCommand
     {
         public Update(
             string id,
