@@ -40,15 +40,19 @@
 
                             break;
 
-                        case Remove _ when _deviceList.All(r => r != command.Id):
-                            logger.Info($"Coordinator: {command.Id} can not be removed, it does not exist.");
+                        case Remove _
+                            when _deviceList.All(r => r != command.Id):
+
+                            logger.Info(
+                                $"Coordinator: {command.Id} can not be removed, it does not exist.");
 
                             return;
 
-                        case Remove _ :
+                        case Remove _:
                             _deviceList.Remove(command.Id);
 
-                            logger.Info($"Coordinator removed device {command.Id}");
+                            logger.Info(
+                                $"Coordinator removed device {command.Id}");
 
                             break;
                     }

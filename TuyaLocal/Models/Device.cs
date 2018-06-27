@@ -1,7 +1,6 @@
 ﻿namespace TuyaLocal.Models
 {
     using System.Net;
-    using Akka.Actor;
 
     public class Device
     {

@@ -24,10 +24,6 @@
         }
 
         [Required]
-        [StringLength(16, MinimumLength = 10)]
-        public string Id { get; }
-
-        [Required]
         [StringLength(16, MinimumLength = 1)]
         public string Name { get; }
 
@@ -37,5 +33,9 @@
         [Required]
         [StringLength(16, MinimumLength = 10)]
         public string SecretKey { get; }
+
+        [Required]
+        [StringLength(16, MinimumLength = 10)]
+        public string Id { get; }
     }
 }

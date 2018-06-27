@@ -96,7 +96,7 @@
 
             if (!result.Any())
             {
-                HttpContext.Response.StatusCode = (int)HttpStatusCode.NotFound;
+                HttpContext.Response.StatusCode = (int) HttpStatusCode.NotFound;
             }
 
             return new JsonResult(result);
