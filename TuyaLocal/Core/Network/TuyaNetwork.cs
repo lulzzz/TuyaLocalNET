@@ -43,7 +43,7 @@ namespace TuyaLocal.Core.Network
 
             if (lastException != null)
             {
-                throw lastException;
+                Console.WriteLine("IOException - tcp connection in use");
             }
 
             return null;

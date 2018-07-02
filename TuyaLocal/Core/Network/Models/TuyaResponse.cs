@@ -23,6 +23,11 @@
 
         public TuyaResponse (IEnumerable<byte> buffer)
         {
+            if (buffer == null)
+            {
+                return;
+            }
+
             using (var m = new MemoryStream(buffer.ToArray()))
             {
                 using (var reader = new BinaryReader(m))

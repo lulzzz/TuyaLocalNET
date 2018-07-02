@@ -1,7 +1,6 @@
 ﻿namespace TuyaLocal.Core.Models
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Text;
     using Network.Models;
@@ -14,6 +13,12 @@
 
         public DeviceInfo(TuyaResponse response)
         {
+            if (response.Payload == null)
+            {
+                State = EDeviceState.NoConnection;
+                return;
+            }
+
             dynamic devInfo = JObject.Parse(
                 Encoding.UTF8.GetString(response.Payload.ToArray()));
 

@@ -7,7 +7,7 @@
 
     internal class InfoRequest
     {
-        public TuyaResponse Response;
+        public readonly TuyaResponse Response;
 
         public InfoRequest(TuyaDevice device)
         {
