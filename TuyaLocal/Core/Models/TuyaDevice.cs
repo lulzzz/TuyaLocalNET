@@ -43,5 +43,23 @@
 
             return this;
         }
+
+        public void TurnOn()
+        {
+            //TuyaNetwork.Send(new TurnOnRequest());
+            if (Info != null)
+            {
+                Info.State = EDeviceState.On;
+            }
+        }
+
+        public void TurnOff()
+        {
+            //TuyaNetwork.Send(new TurnOffRequest());
+            if (Info != null)
+            {
+                Info.State = EDeviceState.Off;
+            }
+        }
     }
 }
