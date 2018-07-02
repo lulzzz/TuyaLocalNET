@@ -1,12 +1,14 @@
-﻿namespace TuyaLocal.Core.Network
-{
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-    using System.Net.Sockets;
-    using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net.Sockets;
+using System.Threading.Tasks;
+using TuyaLocal.Core.Models;
+using TuyaLocal.Core.Network.Models;
 
+namespace TuyaLocal.Core.Network
+{
     public static class TuyaNetwork
     {
         public static async Task<IEnumerable<byte>> Send(IEnumerable<byte> data, string ip, int port)
@@ -45,6 +47,16 @@
             }
 
             return null;
+        }
+
+        public static TuyaResponse SendRequest(TuyaDevice device, IReadOnlyCollection<byte> payload)
+        {
+            return new TuyaResponse(Send(new TuyaRequest
+            {
+                OpCode = 10,
+                Payload = payload,
+                Size = payload.Count
+            }.Serialize(), device.IpAddress.ToString(), device.Port).Result);
         }
     }
 }

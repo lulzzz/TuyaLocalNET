@@ -73,6 +73,7 @@
     <Compile Include="Core\Models\EDeviceState.cs" />
     <Compile Include="Core\Models\EDeviceType.cs" />
     <Compile Include="Core\Models\DeviceInfo.cs" />
+    <Compile Include="Core\Models\InfoRequest.cs" />
     <Compile Include="Core\Network\Models\ITuyaRequest.cs" />
     <Compile Include="Core\Network\Models\ITuyaResponse.cs" />
     <Compile Include="Core\Network\Models\TuyaRequest.cs" />
