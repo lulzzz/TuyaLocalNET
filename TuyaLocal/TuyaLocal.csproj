@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>TuyaLocal</RootNamespace>
     <AssemblyName>TuyaLocalApi</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
@@ -74,8 +74,17 @@
     <Compile Include="Commands\Group\Get.cs" />
     <Compile Include="Commands\Group\GetAll.cs" />
     <Compile Include="Commands\Group\RemoveDevice.cs" />
+    <Compile Include="Core\Models\EDeviceState.cs" />
+    <Compile Include="Core\Models\EDeviceType.cs" />
+    <Compile Include="Core\Models\DeviceInfo.cs" />
+    <Compile Include="Core\Network\Models\ITuyaRequest.cs" />
+    <Compile Include="Core\Network\Models\ITuyaResponse.cs" />
+    <Compile Include="Core\Network\Models\TuyaRequest.cs" />
+    <Compile Include="Core\Network\Models\TuyaResponse.cs" />
+    <Compile Include="Core\Network\TuyaNetwork.cs" />
     <Compile Include="Models\Group.cs" />
     <Compile Include="Models\IDeviceCommand.cs" />
+    <Compile Include="Core\Models\TuyaDevice.cs" />
     <Compile Include="Validations\IpAddressAttribute.cs" />
     <Compile Include="Commands\Device\Add.cs" />
     <Compile Include="Models\Device.cs" />
@@ -88,5 +97,6 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

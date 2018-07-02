@@ -3,13 +3,14 @@
     using Akka.Actor;
     using Akka.Event;
     using Commands.Device;
+    using Core.Models;
     using Models;
 
     public class DeviceActor : ReceiveActor
     {
         public DeviceActor(string id)
         {
-            var device = new Device {Id = id};
+            var device = new TuyaDevice {Id = id};
 
             var logger = Context.GetLogger();
 
@@ -40,6 +41,8 @@
                 {
                     logger.Info(
                         $"{command.Id} actor getting Device");
+
+                    device.GetInfo();
 
                     Sender.Tell(device);
                 });

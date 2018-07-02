@@ -1,6 +1,6 @@
 ﻿namespace TuyaLocal.Core.Network.Models
 {
-    internal interface ITuyaRequest
+    public interface ITuyaRequest
     {
         byte[] Serialize();
     }

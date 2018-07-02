@@ -1,7 +1,9 @@
 ﻿namespace TuyaLocal.Core.Network.Models
 {
-    internal interface ITuyaResponse
+    using System.Collections.Generic;
+
+    public interface ITuyaResponse
     {
-        CAck Serialize(byte[] buffer);
+        TuyaResponse Deserialize(IEnumerable<byte> payload);
     }
 }
