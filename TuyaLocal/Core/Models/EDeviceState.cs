@@ -1,5 +1,9 @@
-﻿namespace TuyaLocal.Core.Models
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+
+namespace TuyaLocal.Core.Models
 {
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum EDeviceState
     {
         On, //the device is turned on and responding
