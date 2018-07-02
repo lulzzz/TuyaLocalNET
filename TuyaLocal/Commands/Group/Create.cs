@@ -10,7 +10,7 @@
         }
 
         [Required]
-        [StringLength(16, MinimumLength = 1)]
+        [StringLength(20, MinimumLength = 1)]
         public string Name { get; }
     }
 }

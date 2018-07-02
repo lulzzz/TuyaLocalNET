@@ -8,7 +8,7 @@
         public Get(string id) => Id = id;
 
         [Required]
-        [StringLength(16, MinimumLength = 10)]
+        [StringLength(20, MinimumLength = 20)]
         public string Id { get; }
     }
 }

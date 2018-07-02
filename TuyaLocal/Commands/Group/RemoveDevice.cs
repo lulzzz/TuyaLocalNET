@@ -11,11 +11,11 @@
         }
 
         [Required]
-        [StringLength(16, MinimumLength = 1)]
+        [StringLength(20, MinimumLength = 1)]
         public string GroupName { get; }
 
         [Required]
-        [StringLength(16, MinimumLength = 10)]
+        [StringLength(20, MinimumLength = 20)]
         public string DeviceId { get; }
     }
 }

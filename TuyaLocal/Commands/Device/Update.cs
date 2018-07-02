@@ -24,18 +24,18 @@
         }
 
         [Required]
-        [StringLength(16, MinimumLength = 1)]
+        [StringLength(20, MinimumLength = 1)]
         public string Name { get; }
 
         [IpAddress]
         public IPAddress IpAddress { get; }
 
         [Required]
-        [StringLength(16, MinimumLength = 10)]
+        [StringLength(20, MinimumLength = 10)]
         public string SecretKey { get; }
 
         [Required]
-        [StringLength(16, MinimumLength = 10)]
+        [StringLength(20, MinimumLength = 20)]
         public string Id { get; }
     }
 }
