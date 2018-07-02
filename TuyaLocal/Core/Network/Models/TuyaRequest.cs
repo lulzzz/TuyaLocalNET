@@ -8,11 +8,15 @@
     [Serializable]
     public class TuyaRequest : ITuyaRequest
     {
-        public byte OpCode { get; set; }
-        public IEnumerable<byte> Payload { get; set; }
-        public readonly List<byte> Prefix = new List<byte> { 0, 0, 85, 170, 0, 0, 0, 0, 0, 0, 0 };
-        public int Size { get; set; }
-        public readonly List<byte> Suffix = new List<byte> { 0, 0, 0, 0, 0, 0, 170, 85 };
+        private readonly List<byte> _prefix =
+            new List<byte> {0, 0, 85, 170, 0, 0, 0, 0, 0, 0, 0};
+
+        public byte OpCode { private get; set; }
+        public int Size { private get; set; }
+        public IEnumerable<byte> Payload { private get; set; }
+
+        private readonly List<byte> _suffix =
+            new List<byte> { 0, 0, 0, 0, 0, 0, 170, 85 };
 
         public byte[] Serialize()
         {
@@ -20,11 +24,16 @@
             {
                 using (var writer = new BinaryWriter(m))
                 {
-                    writer.Write(Prefix.ToArray());
+                    writer.Write(_prefix.ToArray());
                     writer.Write(OpCode);
-                    writer.Write(BitConverter.GetBytes(Size + Suffix.Count).Reverse().ToArray());
+
+                    writer.Write(
+                        BitConverter.GetBytes(Size + _suffix.Count)
+                            .Reverse()
+                            .ToArray());
+
                     writer.Write(Payload.ToArray());
-                    writer.Write(Suffix.ToArray());
+                    writer.Write(_suffix.ToArray());
                 }
 
                 return m.ToArray();

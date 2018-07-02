@@ -5,7 +5,7 @@
     public class TuyaDevice : Device
     {
         public int Port { get; set; } = 6668;
-        public DeviceInfo Info { get; set; }
+        private DeviceInfo Info { get; set; }
 
         public TuyaDevice GetInfo()
         {

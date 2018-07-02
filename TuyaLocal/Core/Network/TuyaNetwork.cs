@@ -11,7 +11,16 @@ namespace TuyaLocal.Core.Network
 {
     public static class TuyaNetwork
     {
-        public static async Task<IEnumerable<byte>> Send(IEnumerable<byte> data, string ip, int port)
+        public static TuyaResponse SendRequest(TuyaDevice device, IReadOnlyCollection<byte> payload)
+        {
+            return new TuyaResponse(Send(new TuyaRequest
+            {
+                OpCode = 10,
+                Payload = payload,
+                Size = payload.Count
+            }.Serialize(), device.IpAddress.ToString(), device.Port).Result);
+        }
+        private static async Task<IEnumerable<byte>> Send(IEnumerable<byte> data, string ip, int port)
         {
             var tries = 3;
             Exception lastException = null;
@@ -47,16 +56,6 @@ namespace TuyaLocal.Core.Network
             }
 
             return null;
-        }
-
-        public static TuyaResponse SendRequest(TuyaDevice device, IReadOnlyCollection<byte> payload)
-        {
-            return new TuyaResponse(Send(new TuyaRequest
-            {
-                OpCode = 10,
-                Payload = payload,
-                Size = payload.Count
-            }.Serialize(), device.IpAddress.ToString(), device.Port).Result);
         }
     }
 }

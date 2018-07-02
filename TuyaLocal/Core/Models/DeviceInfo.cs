@@ -8,14 +8,12 @@
 
     public class DeviceInfo
     {
-        public EDeviceType Type { get; set; }
-        public EDeviceState State { get; set; }
-
         public DeviceInfo(TuyaResponse response)
         {
             if (response.Payload == null)
             {
                 State = EDeviceState.NoConnection;
+
                 return;
             }
 
@@ -38,5 +36,9 @@
                 State = EDeviceState.NoResponse;
             }
         }
+
+        public EDeviceState State { get; set; }
+
+        public EDeviceType Type { get; set; }
     }
 }

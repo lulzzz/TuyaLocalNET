@@ -7,19 +7,17 @@
 
     public class TuyaResponse
     {
-        public readonly List<byte> Suffix =
-            new List<byte> {0, 0, 170, 85};
+        private readonly List<byte> _prefix =
+            new List<byte> { 0, 0, 85, 170, 0, 0, 0, 0, 0, 0, 0 };
 
-        public byte OpCode;
+        private readonly byte _opCode;
 
-        public IEnumerable<byte> Payload;
+        private readonly int _unknown;
 
-        public List<byte> Prefix =
-            new List<byte> {0, 0, 85, 170, 0, 0, 0, 0, 0, 0, 0};
+        public readonly IEnumerable<byte> Payload;
 
-        public int Size;
-
-        public int Unknown;
+        private readonly List<byte> _suffix =
+            new List<byte> { 0, 0, 170, 85 };
 
         public TuyaResponse (IEnumerable<byte> buffer)
         {
@@ -32,22 +30,22 @@
             {
                 using (var reader = new BinaryReader(m))
                 {
-                    Prefix = reader.ReadBytes(Prefix.Count).ToList();
-                    OpCode = reader.ReadByte();
+                    _prefix = reader.ReadBytes(_prefix.Count).ToList();
+                    _opCode = reader.ReadByte();
 
-                    Size = BitConverter.ToInt32(
+                    var size = BitConverter.ToInt32(
                         reader.ReadBytes(4).Reverse().ToArray(),
                         0);
 
-                    Unknown = reader.ReadInt32();
+                    _unknown = reader.ReadInt32();
 
                     Payload = reader.ReadBytes(
-                        Size - Prefix.Count - 1);
+                        size - _prefix.Count - 1);
 
                     while (reader.BaseStream.Position <
                            reader.BaseStream.Length)
                     {
-                        Suffix.Append(reader.ReadByte());
+                        _suffix.Append(reader.ReadByte());
                     }
                 }
             }
