@@ -1,4 +1,4 @@
-﻿namespace TuyaLocal.Core.Network.Models
+﻿namespace TuyaLocal.Core.Network.Models.Base
 {
     using System;
     using System.Collections.Generic;
@@ -6,7 +6,7 @@
     using System.Linq;
 
     [Serializable]
-    public class TuyaRequest : ITuyaRequest
+    public class TuyaBaseBaseRequest : ITuyaBaseRequest
     {
         private readonly List<byte> _prefix =
             new List<byte> {0, 0, 85, 170, 0, 0, 0, 0, 0, 0, 0};

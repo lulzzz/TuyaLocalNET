@@ -1,13 +1,13 @@
-﻿namespace TuyaLocal.Core.Models
+﻿namespace TuyaLocal.Core.Network.Models
 {
     using System.Text;
+    using Base;
     using Network;
-    using Network.Models;
     using Newtonsoft.Json;
 
     internal class InfoRequest
     {
-        public readonly TuyaResponse Response;
+        public readonly TuyaBaseResponse BaseResponse;
 
         public InfoRequest(TuyaDevice device)
         {
@@ -20,7 +20,7 @@
                     }
                 ));
 
-            Response = TuyaNetwork.SendRequest(device, payload);
+            BaseResponse = TuyaNetwork.SendRequest(device, payload);
         }
     }
 }

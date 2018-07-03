@@ -4,21 +4,22 @@
     using System.Linq;
     using System.Text;
     using Network.Models;
+    using Network.Models.Base;
     using Newtonsoft.Json.Linq;
 
     public class DeviceInfo
     {
-        public DeviceInfo(TuyaResponse response)
+        public DeviceInfo Parse(TuyaBaseResponse baseResponse)
         {
-            if (response.Payload == null)
+            if (baseResponse.Payload == null)
             {
                 State = EDeviceState.NoConnection;
 
-                return;
+                return this;
             }
 
             dynamic devInfo = JObject.Parse(
-                Encoding.UTF8.GetString(response.Payload.ToArray()));
+                Encoding.UTF8.GetString(baseResponse.Payload.ToArray()));
 
             try
             {
@@ -35,6 +36,8 @@
             {
                 State = EDeviceState.NoResponse;
             }
+
+            return this;
         }
 
         public EDeviceState State { get; set; }

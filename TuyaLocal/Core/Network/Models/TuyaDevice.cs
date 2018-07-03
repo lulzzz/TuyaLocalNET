@@ -1,5 +1,6 @@
-﻿namespace TuyaLocal.Core.Models
+﻿namespace TuyaLocal.Core.Network.Models
 {
+    using Core.Models;
     using TuyaLocal.Models;
 
     public class TuyaDevice : Device
@@ -11,11 +12,11 @@
         {
             if (IpAddress == null || Id == null)
             {
-                return null;
+                return this;
             }
 
-            Info = new DeviceInfo(
-                new InfoRequest(this).Response);
+            Info = new DeviceInfo().Parse(
+                new InfoRequest(this).BaseResponse);
 
             return this;
         }

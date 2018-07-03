@@ -1,11 +1,11 @@
-﻿namespace TuyaLocal.Core.Network.Models
+﻿namespace TuyaLocal.Core.Network.Models.Base
 {
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
 
-    public class TuyaResponse
+    public class TuyaBaseResponse
     {
         private readonly List<byte> _prefix =
             new List<byte> { 0, 0, 85, 170, 0, 0, 0, 0, 0, 0, 0 };
@@ -19,7 +19,7 @@
         private readonly List<byte> _suffix =
             new List<byte> { 0, 0, 170, 85 };
 
-        public TuyaResponse (IEnumerable<byte> buffer)
+        public TuyaBaseResponse (IEnumerable<byte> buffer)
         {
             if (buffer == null)
             {

@@ -4,6 +4,7 @@
     using Akka.Event;
     using Commands.Device;
     using Core.Models;
+    using Core.Network.Models;
     using Models;
 
     public class DeviceActor : ReceiveActor

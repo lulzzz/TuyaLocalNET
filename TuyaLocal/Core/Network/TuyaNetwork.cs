@@ -5,15 +5,17 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 using TuyaLocal.Core.Models;
-using TuyaLocal.Core.Network.Models;
 
 namespace TuyaLocal.Core.Network
 {
+    using Models;
+    using Models.Base;
+
     public static class TuyaNetwork
     {
-        public static TuyaResponse SendRequest(TuyaDevice device, IReadOnlyCollection<byte> payload)
+        public static TuyaBaseResponse SendRequest(TuyaDevice device, IReadOnlyCollection<byte> payload)
         {
-            return new TuyaResponse(Send(new TuyaRequest
+            return new TuyaBaseResponse(Send(new TuyaBaseBaseRequest
             {
                 OpCode = 10,
                 Payload = payload,
